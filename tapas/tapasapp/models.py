@@ -24,4 +24,18 @@ class Dish(models.Model):
 
     def __str__(self):
         return str(self.pk) + ": " + self.name
-    
+
+'''
+2. Create an Account model with fields for a username and a password. Define get
+methods as well (i.e. getUsername() and getPassword()) to retrieve the
+values for these fields
+'''
+class Account(models.Model):
+    username = models.CharField(max_length=100)
+    password = models.CharField(max_length=100)
+
+    def getUsername():
+        return username
+
+    def getPassword():
+        return password
