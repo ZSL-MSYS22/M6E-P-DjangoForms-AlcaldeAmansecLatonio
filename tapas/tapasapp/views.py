@@ -5,19 +5,31 @@ from .models import Dish
 
 
 def better_menu(request):
-    dish_objects = Dish.objects.all()
-    return render(request, 'tapasapp/better_list.html', {'dishes':dish_objects})
+    account_info = Accounts.objects.all()
+    return render(request, 'tapasapp/better_list.html', {'account_info':account_info})
+
+    '''dish_objects = Dish.objects.all()
+    return render(request, 'tapasapp/better_list.html', {'dishes':dish_objects})'''
 
 # Creating Data Records (Code Perspective)
 def add_menu(request):
     if(request.method=="POST"):
+        dishname = request.POST.get('dname') 
+        cooktime = request.POST.get('ctime')
+        # dname is from the id of the HTML tag
+        # user input is passed into variable "dishname"
+        return redirect('better_menu')
+    else:
+        return render(request, 'tapasapp/add_menu.html')
+
+    '''if(request.method=="POST"):
         dishname = request.POST.get('dname')
         cooktime = request.POST.get('ctime')
         preptime = request.POST.get('ptime')
         Dish.objects.create(name=dishname, cook_time=cooktime, prep_time=preptime)
         return redirect('better_menu')
     else:
-        return render(request, 'tapasapp/add_menu.html')
+        return render(request, 'tapasapp/add_menu.html')'''
 
 def view_detail(request, pk):
     d = get_object_or_404(Dish, pk=pk)

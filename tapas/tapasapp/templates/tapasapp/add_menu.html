@@ -11,6 +11,7 @@
         <div class="card-body">
 
             <form method="POST" action="{% url 'add_menu' %}">{% csrf_token %}
+            <!-- Form action redirects to url ‘add_menu’  -->
             
                 <!-- 4.a.ii 
                 This login page should contain a form that prompts 
