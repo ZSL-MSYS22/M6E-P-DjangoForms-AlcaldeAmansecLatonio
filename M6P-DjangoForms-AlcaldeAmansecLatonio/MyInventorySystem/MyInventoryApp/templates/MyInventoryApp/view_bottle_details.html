@@ -1,0 +1,35 @@
+{% extends 'MyInventoryApp/base.html' %}
+
+{% block sidebar %}
+<li><a href="{% url 'view_bottles' %}">Back to Bottles</a></li>
+{% endblock %}
+
+{% block content %}
+<h1 class="page-title">Bottle Details</h1>
+<div class="inv-card" style="max-width:700px;">
+    <div class="inv-card-header"><h5>{{ bottle.brand }}</h5></div>
+    <div class="inv-card-body">
+        <p><strong>SKU:</strong> {{ bottle.SKU }}</p>
+        <p><strong>Brand:</strong> {{ bottle.brand }}</p>
+        <p><strong>Cost:</strong> {{ bottle.cost }}</p>
+        <p><strong>Size:</strong> {{ bottle.size }}</p>
+        <p><strong>Mouth Size:</strong> {{ bottle.mouth_size }}</p>
+        <p><strong>Color:</strong> {{ bottle.color }}</p>
+        <p><strong>Quantity:</strong> {{ bottle.current_quantity }}</p>
+        <p><strong>Supplier:</strong> {{ bottle.supplied_by.name }}</p>
+
+        <div style="display:flex; gap:10px; margin-top:18px;">
+            <form method="post" action="{% url 'delete_bottle' pk=bottle.pk %}" style="margin:0; flex:1;"
+                  onsubmit="return confirm('Delete this water bottle?');">
+                {% csrf_token %}
+                <button type="submit" class="btn-danger" style="width:100%;">Delete</button>
+            </form>
+
+            <a href="{% url 'view_bottles' %}" class="btn-outline-navy"
+               style="flex:1; justify-content:center; text-align:center;">
+               Back
+            </a>
+        </div>
+    </div>
+</div>
+{% endblock %}

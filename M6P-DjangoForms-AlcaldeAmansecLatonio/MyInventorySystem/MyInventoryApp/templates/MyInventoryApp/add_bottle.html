@@ -1,0 +1,84 @@
+{% extends 'MyInventoryApp/base.html' %}
+
+{% block sidebar %}
+    <li><a href="{% url 'view_bottles' %}">Back to Bottles</a></li>
+{% endblock %}
+
+{% block content %}
+
+<h1 class="page-title">Add Water Bottle</h1>
+
+<div class="inv-card" style="max-width: 720px;">
+    <div class="inv-card-header">
+        <h5>Bottle Details</h5>
+    </div>
+    <div class="inv-card-body">
+        <form method="post">
+            {% csrf_token %}
+
+            <!-- SKU -->
+            <div class="form-group">
+                <label class="inv-label" for="sku">SKU</label>
+                <input class="inv-input" type="text" id="sku" name="SKU" placeholder="e.g. 1A1">
+            </div>
+
+            <!-- Brand -->
+            <div class="form-group">
+                <label class="inv-label" for="brand">Brand</label>
+                <input class="inv-input" type="text" id="brand" name="brand" placeholder="e.g. Hydro Flask">
+            </div>
+
+            <!-- Cost + Size -->
+            <div class="form-row form-group">
+                <div>
+                    <label class="inv-label" for="cost">Cost</label>
+                    <input class="inv-input" type="number" id="cost" name="cost" step="0.01" placeholder="0.00">
+                </div>
+                <div>
+                    <label class="inv-label" for="size">Size</label>
+                    <input class="inv-input" type="text" id="size" name="size" placeholder="e.g. 18 oz">
+                </div>
+            </div>
+
+            <!-- Mouth Size + Color -->
+            <div class="form-row form-group">
+                <div>
+                    <label class="inv-label" for="mouth_size">Mouth Size</label>
+                    <select class="inv-select" id="mouth_size" name="mouth_size">
+                        <option value="">— Select —</option>
+                        <option>Wide Mouth</option>
+                        <option>Standard Mouth</option>
+                        <option>Narrow Mouth</option>
+                    </select>
+                </div>
+                <div>
+                    <label class="inv-label" for="color">Color</label>
+                    <input class="inv-input" type="text" id="color" name="color" placeholder="e.g. Black">
+                </div>
+            </div>
+
+            <!-- Quantity + Supplier -->
+            <div class="form-row form-group">
+                <div>
+                    <label class="inv-label" for="quantity">Quantity</label>
+                    <input class="inv-input" type="number" id="quantity" name="current_quantity" min="0" placeholder="0">
+                </div>
+                <div>
+                    <label class="inv-label" for="supplier">Supplier</label>
+                    <select class="inv-select" id="supplier" name="supplied_by">
+                        {% for supplier in suppliers %}
+                            <option value="{{ supplier.id }}">{{ supplier.name }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+            </div>
+
+            <button type="submit" class="btn-navy">
+                Add to Inventory
+            </button>
+
+        </form>
+    </div>
+</div>
+
+{% endblock %}

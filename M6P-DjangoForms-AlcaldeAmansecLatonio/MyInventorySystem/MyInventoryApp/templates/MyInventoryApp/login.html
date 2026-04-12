@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login – My Inventory System</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&display=swap">
+    <link rel="stylesheet" href="{% static 'bootstrap/css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'MyInventoryApp/css/inventory.css' %}">
+    <script src="{% static 'bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+    <style>
+        body {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: var(--bg);
+        }
+        .auth-wrapper { width: 100%; max-width: 400px; padding: 24px; }
+        .auth-logo { text-align: center; margin-bottom: 28px; }
+        .auth-logo .emoji { font-size: 36px; }
+        .auth-logo h1 { font-size: 20px; font-weight: 600; color: var(--navy); margin: 8px 0 0; }
+        .auth-logo p { font-size: 13px; color: var(--text-muted); margin: 4px 0 0; }
+        .auth-footer { text-align: center; margin-top: 20px; font-size: 13px; color: var(--text-muted); }
+        .auth-footer a { color: var(--accent); text-decoration: none; font-weight: 500; }
+        .auth-footer a:hover { text-decoration: underline; }
+        .alert-warn {
+            background: #fff3cd; border: 1px solid #ffc107; border-radius: 6px;
+            padding: 10px 14px; font-size: 13px; color: #7d5a00; margin-bottom: 16px;
+        }
+        .alert-success {
+            background: #d1f2e1; border: 1px solid #28a745; border-radius: 6px;
+            padding: 10px 14px; font-size: 13px; color: #155724; margin-bottom: 16px;
+        }
+    </style>
+</head>
+<body>
+<div class="auth-wrapper">
+    <div class="auth-logo">
+        <h1>My Inventory System</h1>
+        <p>Sign in to your account</p>
+    </div>
+    <div class="inv-card">
+        <div class="inv-card-body">
+            {% if error_message %}
+                <div class="alert-warn">{{ error_message }}</div>
+            {% endif %}
+            {% if success_message %}
+                <div class="alert-success">{{ success_message }}</div>
+            {% endif %}
+            <form method="post">
+                {% csrf_token %}
+                <div class="form-group">
+                    <label class="inv-label" for="username">Username</label>
+                    <input class="inv-input" type="text" id="username" name="username"
+                           placeholder="Enter your username" required>
+                </div>
+                <div class="form-group">
+                    <label class="inv-label" for="password">Password</label>
+                    <input class="inv-input" type="password" id="password" name="password"
+                           placeholder="Enter your password" required>
+                </div>
+                <button type="submit" class="btn-navy" style="width:100%; justify-content:center; margin-top:8px;">
+                    Sign In
+                </button>
+            </form>
+        </div>
+    </div>
+    <div class="auth-footer">
+        Don't have an account? <a href="{% url 'signup' %}">Sign up</a>
+    </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,67 @@
+<!-- Johann Miguel S. Alcalde, 240150 ; Samantha Louise F. Amansec, 230286 ; Zale Sebastian S. Latonio, 242494
+
+We hereby attest to the truth of the following facts:
+
+We have not discussed the Python code in our program with anyone
+other than my instructor or the teaching assistants assigned to this course.
+
+We have not used Python code obtained from another student, or
+any other unauthorized source, whether modified or unmodified.
+
+If any Python code or documentation used in our program was
+obtained from another source, it has been clearly noted with citations in the
+comments of our program.-->
+
+<!DOCTYPE html>
+{% load static %}
+
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Inventory System</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Material+Icons">
+    <link rel="stylesheet" href="{% static 'bootstrap/css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'bootstrap/css/custom.css' %}">
+    <link rel="stylesheet" href="{% static 'myinventoryapp/css/inventory.css' %}">
+    <script src="{% static 'bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+</head>
+
+<body>
+
+    <!-- Navbar -->
+    <nav class="top-navbar">
+        <a class="brand" href="{% url 'view_suppliers' %}">
+            My Inventory System
+        </a>
+        <div class="nav-spacer"></div>
+        <a href="{% url 'add_bottle' %}" class="nav-action">
+            <span class="material-icons">add</span> Add Bottle
+        </a>
+    </nav>
+
+    <div class="layout-wrapper">
+
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="sidebar-label">Navigation</div>
+            <ul>
+                {% block sidebar %}{% endblock %}
+            </ul>
+        </aside>
+
+        <!-- Content -->
+        <main class="main-content">
+            {% block content %}{% endblock %}
+        </main>
+
+    </div>
+
+    <footer class="page-footer">
+        &copy; 2026 MyInventorySystem
+    </footer>
+
+</body>
+</html>

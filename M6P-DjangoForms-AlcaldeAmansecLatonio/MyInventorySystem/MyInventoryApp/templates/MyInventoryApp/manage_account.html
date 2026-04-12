@@ -1,0 +1,45 @@
+{% extends 'MyInventoryApp/base.html' %}
+
+{% block sidebar %}
+<li><a href="{% url 'view_bottles' %}">View Bottles</a></li>
+<li><a href="{% url 'manage_account' pk=account.pk %}" class="active">Manage Account</a></li>
+{% endblock %}
+
+{% block content %}
+
+<h1 class="page-title">Manage Account</h1>
+
+<div class="inv-card" style="max-width: 480px;">
+    <div class="inv-card-header">
+        <h5>Account Details</h5>
+    </div>
+    <div class="inv-card-body">
+
+        <div style="margin-bottom: 24px;">
+            <div class="inv-label" style="margin-bottom:2px;">Username</div>
+            <div style="font-size:15px; font-weight:500; color:var(--navy);">{{ account.username }}</div>
+        </div>
+
+        <div style="display:flex; flex-direction:column; gap:10px;">
+
+            <a href="{% url 'change_password' pk=account.pk %}" class="btn-navy" style="justify-content:center;">
+                Change Password
+            </a>
+
+            <form method="post" action="{% url 'delete_account' pk=account.pk %}"
+                  onsubmit="return confirm('Are you sure you want to delete your account? This cannot be undone.');">
+                {% csrf_token %}
+                <button type="submit" class="btn-danger" style="width:100%;">
+                    Delete Account
+                </button>
+            </form>
+
+            <a href="{% url 'view_bottles' %}" class="btn-outline-navy" style="justify-content:center; text-align:center;">
+                Back
+            </a>
+        </div>
+
+    </div>
+</div>
+
+{% endblock %}

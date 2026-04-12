@@ -1,0 +1,60 @@
+{% extends 'MyInventoryApp/base.html' %}
+{% load static %}
+
+{% block sidebar %}
+<li><a href="{% url 'view_suppliers' %}" class="active">View Suppliers</a></li>
+<li><a href="{% url 'view_bottles' %}">View Bottles</a></li>
+{% endblock %}
+
+{% block content %}
+
+<div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:20px;">
+    <h1 class="page-title" style="margin-bottom:0;">Suppliers</h1>
+    <div style="display:flex; gap:10px;">
+       
+        <a href="{% url 'manage_account' pk=request.session.account_id %}" class="btn-navy">
+            Manage Account
+        </a>
+
+        <a href="{% url 'logout' %}" class="btn-danger">
+            Logout
+        </a>
+        
+    </div>
+</div>
+
+<div class="inv-card">
+    <div class="inv-card-header">
+        <h5>All Suppliers</h5>
+    </div>
+    <div style="overflow-x: auto;">
+        <table class="inv-table">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>City</th>
+                    <th>Country</th>
+                    <th>Created At</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for s in suppliers %}
+                <tr>
+                    <td><a href="{% url 'view_bottles' %}">{{ s.name }}</a></td>
+                    <td>{{ s.city }}</td>
+                    <td>{{ s.country }}</td>
+                    <td>{{ s.created_at }}</td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="4" style="text-align:center; color: var(--text-muted); padding: 28px;">
+                        No suppliers found.
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+{% endblock %}
