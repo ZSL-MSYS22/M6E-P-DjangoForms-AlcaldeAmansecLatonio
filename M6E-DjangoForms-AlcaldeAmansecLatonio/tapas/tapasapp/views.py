@@ -32,26 +32,18 @@ def add_menu(request):
     if(request.method=="POST"):
         username = request.POST.get('username') 
         password = request.POST.get('password')
-        usernameCheck = get_object_or_404(Account, username=username)
-        passwordCheck = get_object_or_404(Account, password=passoword)
-    
-        # if username == usernameCheck and password == passwordCheck:
-        #     return redirect('better_menu')
-        # else:
-        #     messages.error(request, 'Invalid Login')
-        #     return render(request, 'tapasapp/add_menu.html')
+
+        account = Account.objects.filter(username=username).first()
+        # Returns the first object matched by the queryset, or None if there is no matching object
+        # https://docs.djangoproject.com/en/6.0/ref/models/querysets/
+        
+        if account != None and password == account.password:
+            return redirect('better_menu')
+        else:
+            return redirect('error_page')
 
     else:
         return render(request, 'tapasapp/add_menu.html')
-
-    '''if(request.method=="POST"):
-        dishname = request.POST.get('dname')
-        cooktime = request.POST.get('ctime')
-        preptime = request.POST.get('ptime')
-        Dish.objects.create(name=dishname, cook_time=cooktime, prep_time=preptime)
-        return redirect('better_menu')
-    else:
-        return render(request, 'tapasapp/add_menu.html')'''
 
 def view_detail(request, pk):
     d = get_object_or_404(Dish, pk=pk)
@@ -70,3 +62,6 @@ def update_dish(request, pk):
     else:
         d = get_object_or_404(Dish, pk=pk)
         return render(request, 'tapasapp/update_menu.html', {'d':d})
+
+def error_page(request):
+    return render(request, 'tapasapp/error_page.html')
