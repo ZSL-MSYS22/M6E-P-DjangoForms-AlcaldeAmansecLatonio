@@ -50,7 +50,9 @@ def sign_up(request):
 
         account = Account.objects.filter(username=username).first()
 
-
+        if account != None:
+            messages.error(request, 'Account already exists')
+            return render(request, 'tapasapp/sign_up_page.html')
 
     else:
         return render(request, 'tapasapp/sign_up_page.html')
