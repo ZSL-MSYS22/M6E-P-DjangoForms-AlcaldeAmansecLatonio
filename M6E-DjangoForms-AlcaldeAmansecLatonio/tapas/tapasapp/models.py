@@ -16,6 +16,7 @@ from django.db import models
 
 # Create your models here.
 
+'''
 class Dish(models.Model):
     name = models.CharField(max_length=300)
     prep_time = models.IntegerField()
@@ -24,6 +25,7 @@ class Dish(models.Model):
 
     def __str__(self):
         return str(self.pk) + ": " + self.name
+'''
 
 '''
 2. Create an Account model with fields for a username and a password. Define get
