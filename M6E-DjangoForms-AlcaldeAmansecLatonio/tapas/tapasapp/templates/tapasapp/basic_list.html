@@ -1,0 +1,30 @@
+<!-- Johann Miguel S. Alcalde, 240150 ; Samantha Louise F. Amansec, 230286 ; Zale Sebastian S. Latonio, 242494
+
+We hereby attest to the truth of the following facts:
+
+We have not discussed the Python code in our program with anyone
+other than my instructor or the teaching assistants assigned to this course.
+
+We have not used Python code obtained from another student, or
+any other unauthorized source, whether modified or unmodified.
+
+If any Python code or documentation used in our program was
+obtained from another source, it has been clearly noted with citations in the
+comments of our program.-->
+
+{% extends 'tapasapp/base.html' %}
+{% load static %}
+
+{% block content %}
+
+<div class="col-12">
+    <h1>Username</h1>
+    <h2>{{ account.username }}</h2>
+    <hr>
+    <p>
+        <a href="{% url 'manage_account' pk=account.pk %}" class="btn btn-success">Manage Account</a>
+        <a href="{% url 'login' %}" class="btn btn-danger">Log Out</a>
+    </p>
+</div>
+
+{% endblock %}

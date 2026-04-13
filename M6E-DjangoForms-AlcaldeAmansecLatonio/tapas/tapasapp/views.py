@@ -19,11 +19,6 @@ from django.contrib import messages
 
 # Create your views here.
 
-
-def better_menu(request):
-    account_info = Account.objects.all()
-    return render(request, 'tapasapp/better_list.html', {'account_info':account_info})
-
 # Creating Data Records (Code Perspective)
 def login(request):
     if(request.method=="POST"):
@@ -35,9 +30,11 @@ def login(request):
         # https://docs.djangoproject.com/en/6.0/ref/models/querysets/
         
         if account != None and password == account.password:
-            return redirect('better_menu')
+            return redirect('basic_list', pk=account.pk)
+            # https://www.geeksforgeeks.org/python/django-return-redirect-with-parameters/
         else:
             messages.error(request, 'Invalid Login')
+            # https://docs.djangoproject.com/en/6.0/ref/contrib/messages/
             return render(request, 'tapasapp/login_page.html')
 
     else:
@@ -53,24 +50,28 @@ def sign_up(request):
         if account != None:
             messages.error(request, 'Account already exists')
             return render(request, 'tapasapp/sign_up_page.html')
+        else:
+            Account.objects.create(username=username, password=password)
+            return redirect('login')
 
     else:
         return render(request, 'tapasapp/sign_up_page.html')
 
-def view_detail(request, pk):
-    d = get_object_or_404(Dish, pk=pk)
-    return render(request, 'tapasapp/view_detail.html', {'d': d})
+def basic_list(request, pk):
+    account = Account.objects.get(pk=pk)
+    return render(request, 'tapasapp/basic_list.html', {'account':account})
 
-def delete_dish(request, pk):
-    Dish.objects.filter(pk=pk).delete()
-    return redirect('better_menu')
+def manage_account(request, pk):
+    account = Account.objects.get(pk=pk)
+    return render(request, 'tapasapp/manage_account.html', {'account':account})
 
-def update_dish(request, pk):
+# WIP
+def change_password(request,pk):
+    account = Account.objects.get(pk=pk)
+
     if(request.method=="POST"):
-        cooktime = request.POST.get('ctime')
-        preptime = request.POST.get('ptime')
-        Dish.objects.filter(pk=pk).update(cook_time=cooktime, prep_time=preptime)
-        return redirect('view_detail', pk=pk)
+        newPassword = request.POST.get('password')
+        Account.objects.filter(pk=pk).update(password=newPassword)
+        return render(request, 'tapasapp/change_password.html', {'account':account})
     else:
-        d = get_object_or_404(Dish, pk=pk)
-        return render(request, 'tapasapp/update_menu.html', {'d':d})
+        return render(request, 'tapasapp/change_password.html', {'account':account})
