@@ -45,6 +45,10 @@ def sign_up(request):
         username = request.POST.get('username') 
         password = request.POST.get('password')
 
+        if not username or not password:
+            messages.error(request, 'Please enter a username and password')
+            return render(request, 'tapasapp/sign_up_page.html')
+    
         account = Account.objects.filter(username=username).first()
 
         if account != None:
