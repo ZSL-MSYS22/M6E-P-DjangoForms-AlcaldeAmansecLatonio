@@ -23,7 +23,7 @@ comments of our program.-->
     <hr>
     <p>
         <a href="{% url 'change_password' pk=account.pk %}" class="btn btn-success">Change Password</a>
-        <a href="#" class="btn btn-danger">Delete Account</a>
+        <a href="{% url 'delete_account' pk=account.pk %}" class="btn btn-danger">Delete Account</a>
         <a href="{% url 'basic_list' pk=account.pk %}" class="btn btn-dark">Back</a>
     </p>
 </div>

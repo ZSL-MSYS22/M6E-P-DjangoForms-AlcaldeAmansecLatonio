@@ -65,13 +65,17 @@ def manage_account(request, pk):
     account = Account.objects.get(pk=pk)
     return render(request, 'tapasapp/manage_account.html', {'account':account})
 
+def delete_account(request, pk):
+    Account.objects.get(pk=pk).delete()
+    return redirect('login')
+
 # WIP
 def change_password(request,pk):
     account = Account.objects.get(pk=pk)
-
-    if(request.method=="POST"):
-        newPassword = request.POST.get('password')
-        Account.objects.filter(pk=pk).update(password=newPassword)
-        return render(request, 'tapasapp/change_password.html', {'account':account})
-    else:
-        return render(request, 'tapasapp/change_password.html', {'account':account})
+    return render(request, 'tapasapp/change_password.html', {'account':account})
+    # if(request.method=="POST"):
+    #     newPassword = request.POST.get('password')
+    #     Account.objects.filter(pk=pk).update(password=newPassword)
+    #     return render(request, 'tapasapp/change_password.html', {'account':account})
+    # else:
+    #     return render(request, 'tapasapp/change_password.html', {'account':account})
