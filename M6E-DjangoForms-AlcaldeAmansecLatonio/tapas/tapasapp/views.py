@@ -98,10 +98,10 @@ def change_password(request,pk):
                 return redirect('manage_account', pk=pk)
             else:
                 changePasswordMessage = 'New passwords do not match'
-                return render(request, 'tapasapp/change_password.html', {'pk':pk}, {'message':changePasswordMessage})
+                return render(request, 'tapasapp/change_password.html', {'pk':pk, 'message':changePasswordMessage})
         else:
             changePasswordMessage = 'Incorrect current password'
-            return render(request, 'tapasapp/change_password.html', {'pk':pk}, {'message':changePasswordMessage})
+            return render(request, 'tapasapp/change_password.html', {'pk':pk, 'message':changePasswordMessage})
 
     else:
         return render(request, 'tapasapp/change_password.html', {'pk':pk})
