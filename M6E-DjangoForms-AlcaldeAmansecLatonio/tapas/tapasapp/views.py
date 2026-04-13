@@ -71,11 +71,24 @@ def delete_account(request, pk):
 
 # WIP
 def change_password(request,pk):
-    account = Account.objects.get(pk=pk)
-    return render(request, 'tapasapp/change_password.html', {'account':account})
-    # if(request.method=="POST"):
-    #     newPassword = request.POST.get('password')
-    #     Account.objects.filter(pk=pk).update(password=newPassword)
-    #     return render(request, 'tapasapp/change_password.html', {'account':account})
-    # else:
-    #     return render(request, 'tapasapp/change_password.html', {'account':account})
+    if(request.method=='POST'):
+        currentPassword = request.POST.get('currentPassword')
+        newPassword = request.POST.get('newPassword')
+        newPasswordAgain = request.POST.get('newPasswordAgain')
+
+        account = Account.objects.get(pk=pk)
+
+        if currentPassword == account.password:
+            if newPassword == newPasswordAgain:
+                Account.objects.filter(pk=pk).update(password=newPassword)
+                # Dish.objects.filter(pk=pk).update(cook_time=cooktime,prep_time=preptime)
+                return redirect('manage_account', pk=pk)
+            else:
+                messages.error(request, 'New passwords do not match')
+        else:
+            messages.error(request, 'Incorrect Current Password')
+
+    else:
+        return render(request, 'tapasapp/change_password.html', {'pk':pk})
+
+    return render(request, 'tapasapp/change_password.html', {'pk':pk})
